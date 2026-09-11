@@ -1,0 +1,1055 @@
+<!doctype html>
+<html lang="ru" data-accent="black" data-bg="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Толипов Дилмурод — Data / BI-аналитик</title>
+<meta name="description" content="Резюме-дашборд Data / BI-аналитика: SQL, PostgreSQL, ClickHouse, BigQuery, Power BI, Tableau, Visiology, Excel, Python.">
+<meta property="og:title" content="Толипов Дилмурод — Data / BI-аналитик">
+<meta property="og:description" content="300+ открытых дашбордов для Ташкента. SQL, Power BI, Tableau, Visiology, Python.">
+<meta property="og:type" content="profile">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Crect x='6' y='17' width='5' height='9' fill='%23F7F2E6'/%3E%3Crect x='13.5' y='11' width='5' height='15' fill='%23F7F2E6'/%3E%3Crect x='21' y='6' width='5' height='20' fill='%23F7F2E6'/%3E%3C/svg%3E">
+<script>
+  /* тема применяется до отрисовки, чтобы не было вспышки */
+  try {
+    var s = JSON.parse(localStorage.getItem("theme") || "{}");
+    if (["black", "cyan", "lime"].indexOf(s.accent) > -1) document.documentElement.dataset.accent = s.accent;
+    if (["paper", "dark"].indexOf(s.bg) > -1) document.documentElement.dataset.bg = s.bg;
+  } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300..900&display=swap" rel="stylesheet">
+<style>
+/* ---------- ТЕМЫ ----------
+   --bg       фон страницы
+   --fg       основной текст      --fg-2 / --fg-3  вторичный текст
+   --soft     тонкие разделители
+   --line     рамки плиток и кнопок
+   --fill     заливки: плашки, бары, выбранные фильтры
+   --on-fill  текст на заливке
+*/
+:root{
+  --cyan:#00E5FF;
+  --lime:#CCFF00;
+  --paper:#F7F2E6;
+  --night:#101114;
+
+  --bg:var(--paper);
+  --fg:#000;
+  --fg-2:#48443B;
+  --fg-3:#8C8575;
+  --soft:#EDE5D2;
+  --line:#000;
+  --fill:#000;
+  --on-fill:var(--paper);
+
+  --bw:1.5px;
+  --gap:16px;
+  --pad:clamp(16px,3.2vw,40px);
+  --font:"Geologica",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  color-scheme:light;
+}
+[data-accent="cyan"]{--fill:var(--cyan);--on-fill:var(--night);--line:#007F8C}
+[data-accent="lime"]{--fill:var(--lime);--on-fill:var(--night);--line:#557000}
+[data-bg="dark"]{--bg:var(--night);--fg:var(--paper);--fg-2:#B5B0A5;--fg-3:#77756F;--soft:#26282E;--fill:var(--paper);--on-fill:var(--night);--line:var(--paper);color-scheme:dark}
+[data-bg="dark"][data-accent="cyan"]{--fill:var(--cyan);--line:var(--cyan)}
+[data-bg="dark"][data-accent="lime"]{--fill:var(--lime);--line:var(--lime)}
+:root{
+  --on-fill-2:color-mix(in srgb,var(--on-fill) 70%,var(--fill));
+  --fill-line:color-mix(in srgb,var(--on-fill) 22%,var(--fill));
+}
+.theming,.theming *{transition:background-color .35s ease,color .35s ease,border-color .35s ease,fill .35s ease,stroke .35s ease!important}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:132px;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.55;padding-bottom:64px;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.inverse :focus-visible{outline-color:var(--on-fill)}
+h1,h2,h3,p{margin:0}
+.wrap{max-width:1360px;margin:0 auto;padding:0 var(--pad)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.topbar{position:sticky;top:0;z-index:30;background:var(--fill);color:var(--on-fill)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:52px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0;text-decoration:none}
+.brand-mark{width:28px;height:28px;flex-shrink:0;display:grid;grid-template-columns:repeat(3,1fr);align-items:end;gap:3px;padding:5px;border:var(--bw) solid var(--on-fill)}
+.brand-mark i{display:block;background:var(--on-fill)}
+.brand-name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-upd{color:var(--on-fill-2);font-size:13px;white-space:nowrap}
+.top-actions{display:flex;align-items:center;gap:8px}
+.seg{display:flex;border:var(--bw) solid var(--on-fill)}
+.seg button{background:transparent;border:0;padding:4px 10px;font-size:13px;font-weight:600;cursor:pointer;color:var(--on-fill)}
+.seg button[aria-pressed="true"]{background:var(--on-fill);color:var(--fill)}
+.sw{display:inline-flex;align-items:flex-end;gap:2px;height:14px;flex-shrink:0;font-style:normal}
+.sw i{display:block;width:6px;border:1px solid currentColor}
+iframe{color-scheme:light}
+
+.btn{display:inline-flex;align-items:center;gap:8px;border:var(--bw) solid var(--line);background:transparent;padding:8px 14px;font-size:14px;font-weight:600;text-decoration:none;cursor:pointer;white-space:nowrap;line-height:1.2}
+.btn:hover{background:var(--fill);color:var(--on-fill)}
+.btn-fill{background:var(--fill);color:var(--on-fill)}
+.btn-fill:hover{background:var(--bg);color:var(--fg)}
+.inverse .btn{border-color:var(--on-fill)}
+.inverse .btn:hover{background:var(--on-fill);color:var(--fill)}
+.inverse .btn-fill{background:var(--on-fill);color:var(--fill)}
+.inverse .btn-fill:hover{background:transparent;color:var(--on-fill)}
+.btn svg{width:16px;height:16px;flex-shrink:0}
+.topbar .btn{padding:4px 10px;font-size:13px}
+
+.filters{position:sticky;top:52px;z-index:25;background:var(--bg);border-bottom:var(--bw) solid var(--line)}
+.filters .wrap{display:flex;align-items:center;gap:20px;min-height:64px;padding-top:10px;padding-bottom:10px}
+.f-title{font-weight:700;font-size:15px;white-space:nowrap}
+.f-groups{display:flex;flex-wrap:wrap;gap:8px 18px;flex:1;min-width:0;padding:2px}
+.f-group{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.f-group-name{font-size:12px;color:var(--fg-2);margin-right:2px;white-space:nowrap}
+.chip{border:var(--bw) solid var(--line);background:transparent;padding:5px 11px;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;line-height:1.2}
+.chip:hover{background:var(--soft)}
+.chip[aria-pressed="true"]{background:var(--fill);color:var(--on-fill)}
+.f-meta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.f-count{font-size:13px;color:var(--fg-2);white-space:nowrap}
+.f-count b{color:var(--fg)}
+.linkbtn{background:none;border:0;padding:4px 2px;font-size:13px;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;white-space:nowrap}
+
+section{padding:clamp(40px,6vw,72px) 0 0}
+.sec-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.sec-title{font-size:clamp(34px,5vw,60px);font-weight:800;letter-spacing:-.035em;line-height:.95}
+.sec-note{color:var(--fg-2);max-width:46ch;font-size:15px}
+
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap)}
+.tile{border:var(--bw) solid var(--line);padding:22px 24px;min-width:0;background:var(--bg)}
+.tile.inverse{background:var(--fill);color:var(--on-fill)}
+.tile-title{font-size:17px;font-weight:700;margin-bottom:4px}
+.tile-sub{font-size:13px;color:var(--fg-2);margin-bottom:18px}
+.inverse .tile-sub{color:var(--on-fill-2)}
+.s12{grid-column:span 12}.s8{grid-column:span 8}.s7{grid-column:span 7}.s6{grid-column:span 6}.s5{grid-column:span 5}.s4{grid-column:span 4}
+
+.fx{transition:opacity .25s ease}
+.is-dim{opacity:.22}
+
+.hero{padding-top:clamp(28px,4vw,48px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,3vw,40px);align-items:stretch}
+.hero-name{font-size:clamp(46px,6vw,88px);font-weight:900;letter-spacing:-.05em;line-height:.86;margin-bottom:22px}
+.hero-name span{display:block}
+.hero-role{font-size:clamp(20px,2vw,26px);font-weight:600;letter-spacing:-.01em;margin-bottom:14px}
+.hero-sum{font-size:17px;line-height:1.6;color:var(--fg-2);max-width:44ch;margin-bottom:26px}
+.hero-contacts{display:flex;flex-wrap:wrap;gap:8px}
+.hero-left{display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.hero-city{font-size:14px;color:var(--fg-2);display:flex;gap:8px;align-items:center}
+
+.live{background:var(--fill);color:var(--on-fill);display:flex;flex-direction:column;min-width:0;margin:0}
+.live-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px}
+.live-dot{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
+.live-dot::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--on-fill);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+.live-screen{position:relative;overflow:hidden;aspect-ratio:16/10;margin:0 16px;border:1px solid var(--fill-line);background:#151515}
+.live-screen iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;transform-origin:0 0;pointer-events:none}
+.live-open{position:absolute;inset:0;background:transparent;border:0;cursor:zoom-in}
+.live-cap{padding:14px 16px 16px;display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.live-cap h2{font-size:20px;font-weight:700;letter-spacing:-.01em}
+.live-cap p{font-size:13px;color:var(--on-fill-2)}
+
+.kpis{margin-top:var(--gap);background:var(--fill);color:var(--on-fill);display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.kpi{padding:22px 24px 24px;border-left:1px solid var(--fill-line)}
+.kpi:first-child{border-left:0}
+.kpi-v{font-size:clamp(40px,4.6vw,68px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.kpi-l{font-size:14px;color:var(--on-fill-2);margin-top:8px;max-width:18ch}
+.todo{color:var(--fg-3)}
+.kpis .todo{color:var(--on-fill-2)}
+
+.scroll-x{overflow-x:auto;overflow-y:hidden}
+.f-groups,.pages .wrap{scrollbar-width:none}
+.f-groups::-webkit-scrollbar,.pages .wrap::-webkit-scrollbar{display:none}
+.gantt{min-width:640px}
+.g-row,.g-axis{display:grid;grid-template-columns:230px minmax(0,1fr);gap:18px;align-items:center}
+.g-row{padding:28px 0 10px;border-top:1px solid var(--soft)}
+.g-row:first-of-type{border-top:0}
+.g-label b{display:block;font-size:15px;font-weight:700;line-height:1.25}
+.g-label span{display:block;font-size:13px;color:var(--fg-2)}
+.g-track{position:relative;height:30px;background-image:linear-gradient(to right,var(--fg-3) 1px,transparent 1px);background-size:calc(100% / 6) 100%}
+.g-bar{position:absolute;top:4px;bottom:4px;background:var(--fill);border:var(--bw) solid var(--line);transform-origin:left center;animation:grow .9s cubic-bezier(.2,.7,.1,1) both}
+.g-bar.plan{background:repeating-linear-gradient(-45deg,var(--line) 0 2px,transparent 2px 6px);animation-name:fade}
+.g-dates{position:absolute;top:-2px;transform:translateY(-100%);font-size:12px;color:var(--fg-2);white-space:nowrap}
+.g-today{position:absolute;top:-6px;bottom:-6px;border-left:2px solid var(--fg)}
+.g-axis{margin-top:6px}
+.g-years{position:relative;height:18px;font-size:12px;color:var(--fg-2)}
+.g-years span{position:absolute;top:0;padding-left:5px}
+.g-today-l{position:absolute;top:0;transform:translateX(-50%);font-size:12px;font-weight:700;background:var(--bg);color:var(--fg);padding:0 4px}
+@keyframes grow{from{transform:scaleX(0)}}
+@keyframes fade{from{opacity:0}}
+.legend{display:flex;gap:18px;font-size:13px;color:var(--fg-2);margin-top:14px;flex-wrap:wrap}
+.legend i{display:inline-block;width:22px;height:12px;vertical-align:-1px;margin-right:6px;background:var(--fill);border:1px solid var(--line)}
+.legend i.plan{background:repeating-linear-gradient(-45deg,var(--line) 0 2px,transparent 2px 6px)}
+
+.job-head{display:flex;justify-content:space-between;gap:12px;align-items:start;margin-bottom:6px}
+.job-role{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.job-org{font-size:15px;font-weight:600;margin-bottom:2px}
+.job-meta{font-size:13px;color:var(--fg-2);margin-bottom:18px}
+.job-dur{font-size:13px;font-weight:700;border:var(--bw) solid var(--line);padding:2px 8px;white-space:nowrap}
+.bul{list-style:none;padding:0;margin:0 0 18px}
+.bul li{position:relative;padding:9px 0 9px 22px;border-top:1px solid var(--soft);font-size:15px;line-height:1.5}
+.bul li::before{content:"";position:absolute;left:1px;top:16px;width:10px;height:10px;background:var(--fill);border:1px solid var(--line)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;font-weight:500;border:1px solid var(--line);padding:2px 7px;line-height:1.3;white-space:nowrap}
+.tag.hit{background:var(--fill);color:var(--on-fill)}
+.inverse .tag{border-color:var(--on-fill)}
+.inverse .tag.hit{background:var(--on-fill);color:var(--fill)}
+
+.dash{display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:300px}
+.dash-stat{font-size:clamp(40px,4.4vw,60px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.dash-statl{font-size:14px;color:var(--on-fill-2);margin-top:6px}
+.dash h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+.dash-note{font-size:13px;color:var(--on-fill-2);margin-bottom:14px}
+.dash-actions{display:flex;flex-wrap:wrap;gap:8px}
+.slot{border-style:dashed;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;min-height:300px;color:var(--fg-2)}
+.slot b{color:var(--fg);font-size:16px}
+.slot p{font-size:13px;max-width:30ch}
+.slot .slot-n{font-size:clamp(40px,4.4vw,60px);font-weight:800;letter-spacing:-.04em;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--fg-3);max-width:none;margin-bottom:8px}
+
+.proj{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:16px 0;border-top:1px solid var(--soft)}
+.proj:first-child{border-top:0;padding-top:0}
+.proj h3{font-size:17px;font-weight:700}
+.proj p{font-size:14px;color:var(--fg-2);grid-column:1/-1}
+.proj .tags{grid-column:1/-1;margin-top:4px}
+.draft{font-size:12px;font-weight:600;border:1px dashed var(--fg-3);color:var(--fg-2);padding:1px 7px;align-self:start;white-space:nowrap}
+
+.mx{width:100%;border-collapse:collapse;font-size:14px}
+.mx th{font-size:12px;font-weight:600;color:var(--fg-2);text-align:center;padding:0 4px 10px;width:21%}
+.mx th:first-child{text-align:left;width:auto}
+.mx td{padding:0;border-top:1px solid var(--soft);text-align:center;height:34px}
+.mx td:first-child{text-align:left}
+.mx-name{background:none;border:0;padding:6px 0;font-size:14px;font-weight:500;cursor:pointer;text-align:left;width:100%}
+.mx-name:hover{text-decoration:underline;text-underline-offset:3px}
+.mx tr.hit .mx-name{font-weight:800}
+.cell{display:inline-block;width:16px;height:16px;background:var(--fill);border:1px solid var(--line);vertical-align:middle}
+.cell.no{width:10px;height:2px;background:var(--fg-3);border:0}
+
+.lang{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 0;border-top:1px solid var(--soft)}
+.lang:first-of-type{border-top:0;padding-top:0}
+.lang b{font-weight:600;font-size:15px}
+.lang span{font-size:13px;color:var(--fg-2);text-align:right}
+.cefr{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+.cefr i{display:block;height:8px;border:1px solid var(--line)}
+.cefr i.on{background:var(--fill)}
+.cefr-l{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,1fr);gap:3px;font-size:10.5px;color:var(--fg-3);font-style:normal}
+.edu b{display:block;font-size:17px;font-weight:700;line-height:1.3}
+.edu p{font-size:14px;color:var(--fg-2);margin-top:4px}
+.edu + .edu{margin-top:16px;padding-top:16px;border-top:1px solid var(--soft)}
+
+.schema svg{width:100%;height:auto;display:block}
+.schema text{font-family:var(--font)}
+.sch-l{stroke:var(--line);stroke-width:1.5}
+.sch-dim{fill:var(--bg);stroke:var(--line);stroke-width:1.5}
+.sch-t{fill:var(--fg)}
+.sch-s{fill:var(--fg-2)}
+.sch-fact{fill:var(--fill);stroke:var(--line);stroke-width:1.5}
+.sch-ft{fill:var(--on-fill)}
+.sch-fs{fill:var(--on-fill-2)}
+.contact-big{font-size:clamp(18px,1.95vw,28px);font-weight:800;letter-spacing:-.02em;line-height:1.2;overflow-wrap:anywhere;text-decoration:none;display:block;margin:6px 0 4px}
+.contact-big:hover{text-decoration:underline;text-underline-offset:5px}
+.foot-note{font-size:13px;color:var(--fg-2);padding:28px 0 12px}
+
+.pages{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--bg);border-top:var(--bw) solid var(--line)}
+.pages .wrap{display:flex;gap:0;overflow-x:auto;height:48px;align-items:stretch}
+.pages a{display:flex;align-items:center;padding:0 18px;font-size:14px;font-weight:600;text-decoration:none;border-right:1px solid var(--soft);white-space:nowrap}
+.pages a:first-child{border-left:1px solid var(--soft)}
+.pages a:hover{background:var(--soft)}
+.pages a[aria-current="true"]{background:var(--fill);color:var(--on-fill)}
+
+dialog{border:var(--bw) solid var(--fill);padding:0;background:var(--fill);color:var(--on-fill);width:min(1500px,96vw);height:min(940px,92vh);max-width:none;max-height:none}
+dialog::backdrop{background:rgba(0,0,0,.72)}
+.dlg{display:flex;flex-direction:column;height:100%}
+.dlg-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid var(--fill-line)}
+.dlg-bar h2{font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dlg iframe{flex:1;width:100%;border:0;background:#151515}
+.toast{position:fixed;left:50%;bottom:72px;transform:translateX(-50%);background:var(--fill);color:var(--on-fill);border:var(--bw) solid var(--line);padding:10px 16px;font-size:14px;font-weight:600;z-index:40}
+
+@media (max-width:1100px){
+  .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .kpi:nth-child(4){border-left:0}
+  .kpi:nth-child(n+4){border-top:1px solid var(--fill-line)}
+  .s8,.s7,.s5{grid-column:span 12}
+  .s4{grid-column:span 6}
+  .brand-upd{display:none}
+}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr}
+  .s6,.s4{grid-column:span 12}
+  .filters .wrap{flex-wrap:wrap;gap:8px 16px}
+  .f-title{display:none}
+  .f-groups{order:2;flex-basis:100%;flex-wrap:nowrap;overflow-x:auto}
+  .f-meta{order:1;width:100%;justify-content:space-between}
+  html{scroll-padding-top:170px}
+  .top-actions .btn span:not(.sw){display:none}
+  .top-actions{gap:6px}
+}
+@media (max-width:560px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpi{border-left:0;border-top:1px solid var(--fill-line)}
+  .kpi:nth-child(-n+2){border-top:0}
+  .kpi:nth-child(even){border-left:1px solid var(--fill-line)}
+  .tile{padding:18px}
+  .brand-name{display:none}
+  .gantt{min-width:540px}
+  .g-row,.g-axis{grid-template-columns:140px minmax(0,1fr);gap:12px}
+  .g-label b{font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+@media print{
+  .topbar,.filters,.pages,.live,.dash-actions{display:none!important}
+  .hero-grid{grid-template-columns:1fr}
+  body{padding:0}
+  .is-dim{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar inverse">
+  <div class="wrap">
+    <a class="brand" href="#overview">
+      <span class="brand-mark" aria-hidden="true"><i style="height:6px"></i><i style="height:11px"></i><i style="height:16px"></i></span>
+      <span class="brand-name" data-t="brand"></span>
+      <span class="brand-upd" id="updated"></span>
+    </a>
+    <div class="top-actions">
+      <button type="button" class="btn" id="accent-btn">
+        <span class="sw" id="accent-sw" aria-hidden="true"></span><span id="accent-lbl"></span>
+      </button>
+      <button type="button" class="btn" id="bg-btn">
+        <span class="sw" id="bg-sw" aria-hidden="true"></span><span id="bg-lbl"></span>
+      </button>
+      <div class="seg" role="group" aria-label="Language">
+        <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-fill" id="pdf" href="#" download hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+        <span data-t="pdf"></span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="filters">
+  <div class="wrap">
+    <p class="f-title" data-t="filter"></p>
+    <div class="f-groups" id="slicer"></div>
+    <div class="f-meta">
+      <p class="f-count" id="count" aria-live="polite"></p>
+      <button type="button" class="linkbtn" id="share" hidden data-t="share"></button>
+      <button type="button" class="linkbtn" id="reset" hidden data-t="reset"></button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section class="hero" id="overview" data-page>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div>
+            <h1 class="hero-name" id="hero-name"></h1>
+            <p class="hero-role" data-t="role"></p>
+            <p class="hero-sum" data-t="summary"></p>
+            <div class="hero-contacts" id="contacts"></div>
+          </div>
+          <p class="hero-city">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <span data-t="city"></span>
+          </p>
+        </div>
+        <figure class="live inverse fx" id="live">
+          <div class="live-bar">
+            <span class="live-dot" data-t="live"></span>
+            <span class="tags" id="live-tags"></span>
+          </div>
+          <div class="live-screen" id="live-screen">
+            <iframe id="live-frame" title="" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+            <button type="button" class="live-open" id="live-open"></button>
+          </div>
+          <figcaption class="live-cap">
+            <div>
+              <h2 id="live-title"></h2>
+              <p id="live-note"></p>
+            </div>
+            <button type="button" class="btn btn-fill" id="live-btn" data-t="openFull"></button>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="kpis inverse" id="kpis"></div>
+    </div>
+  </section>
+
+  <section id="experience" data-page>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="sec-title" data-t="expTitle"></h2>
+        <p class="sec-note" data-t="expNote"></p>
+      </div>
+      <div class="grid">
+        <div class="tile s12">
+          <p class="tile-title" data-t="ganttTitle"></p>
+          <p class="tile-sub" data-t="ganttSub"></p>
+          <div class="scroll-x"><div class="gantt" id="gantt"></div></div>
+          <div class="legend"><span><i></i><span data-t="legDone"></span></span><span><i class="plan"></i><span data-t="legPlan"></span></span></div>
+        </div>
+        <div id="jobs" style="display:contents"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboards" data-page>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="sec-title" data-t="dashTitle"></h2>
+        <p class="sec-note" data-t="dashNote"></p>
+      </div>
+      <div class="grid" id="gallery"></div>
+    </div>
+  </section>
+
+  <section id="projects" data-page>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="sec-title" data-t="skillsTitle"></h2>
+        <p class="sec-note" data-t="skillsNote"></p>
+      </div>
+      <div class="grid">
+        <div class="tile s7">
+          <p class="tile-title" data-t="projTitle"></p>
+          <p class="tile-sub" data-t="projSub"></p>
+          <div id="proj-list"></div>
+        </div>
+        <div class="tile s5">
+          <p class="tile-title" data-t="mxTitle"></p>
+          <p class="tile-sub" data-t="mxSub"></p>
+          <table class="mx" id="matrix"></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" data-page>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="sec-title" data-t="aboutTitle"></h2>
+      </div>
+      <div class="grid">
+        <div class="tile s4">
+          <p class="tile-title" data-t="eduTitle"></p>
+          <p class="tile-sub" data-t="eduSub"></p>
+          <div id="edu"></div>
+        </div>
+        <div class="tile s4">
+          <p class="tile-title" data-t="certTitle"></p>
+          <p class="tile-sub" data-t="certSub"></p>
+          <div id="certs"></div>
+        </div>
+        <div class="tile s4">
+          <p class="tile-title" data-t="langTitle"></p>
+          <p class="tile-sub" data-t="langSub"></p>
+          <div id="langs"></div>
+        </div>
+        <div class="tile s7 schema">
+          <p class="tile-title" data-t="schemaTitle"></p>
+          <p class="tile-sub" data-t="schemaSub"></p>
+          <svg viewBox="0 0 640 300" role="img" aria-labelledby="schema-desc">
+            <desc id="schema-desc">fact_career в центре, связан с dim_date, dim_company, dim_skill, dim_project и dim_language</desc>
+            <g class="sch-l">
+              <line x1="320" y1="150" x2="95" y2="55"/><line x1="320" y1="150" x2="545" y2="55"/>
+              <line x1="320" y1="150" x2="95" y2="245"/><line x1="320" y1="150" x2="545" y2="245"/>
+              <line x1="320" y1="150" x2="320" y2="270"/>
+            </g>
+            <g font-size="13">
+              <rect class="sch-fact" x="225" y="92" width="190" height="116"/>
+              <text class="sch-ft" x="241" y="118" font-weight="700" font-size="15">fact_career</text>
+              <text class="sch-fs" x="241" y="142">date_key</text>
+              <text class="sch-fs" x="241" y="160">company_key, skill_key</text>
+              <text class="sch-fs" x="241" y="178">project_key</text>
+              <text class="sch-fs" x="241" y="196">dashboards_built = 300+</text>
+            </g>
+            <g font-size="12">
+              <rect class="sch-dim" x="20" y="26" width="150" height="58"/>
+              <text class="sch-t" x="34" y="49" font-weight="700" font-size="14">dim_date</text><text class="sch-s" x="34" y="69">2023-08 … today</text>
+              <rect class="sch-dim" x="470" y="26" width="150" height="58"/>
+              <text class="sch-t" x="484" y="49" font-weight="700" font-size="14">dim_company</text><text class="sch-s" x="484" y="69">2 rows</text>
+              <rect class="sch-dim" x="20" y="216" width="150" height="58"/>
+              <text class="sch-t" x="34" y="239" font-weight="700" font-size="14">dim_skill</text><text class="sch-s" x="34" y="259" id="schema-skills">13 rows</text>
+              <rect class="sch-dim" x="470" y="216" width="150" height="58"/>
+              <text class="sch-t" x="484" y="239" font-weight="700" font-size="14">dim_project</text><text class="sch-s" x="484" y="259">4 rows</text>
+              <rect class="sch-dim" x="245" y="244" width="150" height="50"/>
+              <text class="sch-t" x="259" y="265" font-weight="700" font-size="14">dim_language</text><text class="sch-s" x="259" y="284">4 rows</text>
+            </g>
+          </svg>
+        </div>
+        <div class="tile s5 inverse" style="display:flex;flex-direction:column;justify-content:space-between;gap:24px">
+          <div>
+            <p class="tile-title" data-t="contactTitle"></p>
+            <p class="tile-sub" data-t="contactSub"></p>
+            <a class="contact-big" id="c-mail"></a>
+            <a class="contact-big num" id="c-phone"></a>
+          </div>
+          <div class="hero-contacts" id="contacts-2"></div>
+        </div>
+      </div>
+      <p class="foot-note" data-t="foot"></p>
+    </div>
+  </section>
+</main>
+
+<nav class="pages" aria-label="Pages">
+  <div class="wrap" id="pages"></div>
+</nav>
+
+<dialog id="dlg" aria-labelledby="dlg-title">
+  <div class="dlg inverse">
+    <div class="dlg-bar">
+      <h2 id="dlg-title"></h2>
+      <div style="display:flex;gap:8px">
+        <a class="btn" id="dlg-new" target="_blank" rel="noopener" data-t="newTab"></a>
+        <button type="button" class="btn btn-fill" id="dlg-close" data-t="close"></button>
+      </div>
+    </div>
+    <iframe id="dlg-frame" title=""></iframe>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+/* =====================================================================
+   ДАННЫЕ РЕЗЮМЕ — всё, что нужно менять, находится здесь
+   ===================================================================== */
+
+const PROFILE = {
+  first: { ru: "Толипов", en: "Dilmurod" },
+  last:  { ru: "Дилмурод", en: "Tolipov" },
+  phone: "+998 94 020 55 63",
+  email: "dilmurodtolipov36@gmail.com",
+  telegram: "",   // например "https://t.me/username"
+  linkedin: "",   // например "https://linkedin.com/in/username"
+  github: "",     // например "https://github.com/username"
+  pdf: { ru: "", en: "" }, // путь к PDF, например "resume-ru.pdf"; пусто — кнопка скрыта
+  updated: "2026-09-11",
+  careerStart: "2023-08-01",
+};
+
+// Инструменты для слайсера. Порядок = порядок кнопок.
+const STACK = [
+  { group: { ru: "SQL и базы", en: "SQL and databases" }, items: ["SQL", "PostgreSQL", "ClickHouse", "BigQuery"] },
+  { group: { ru: "BI и отчёты", en: "BI and reporting" }, items: ["Visiology", "Power BI", "DAX", "Power Query", "Tableau", "Excel"] },
+  { group: { ru: "Код и пайплайны", en: "Code and pipelines" }, items: ["Python", "ETL", "API"] },
+];
+
+// null = цифра ещё не заполнена, на сайте будет прочерк
+const KPIS = [
+  { value: "300+", label: { ru: "дашбордов построено", en: "dashboards built" } },
+  { value: "80", label: { ru: "клиентов на Kwork", en: "clients on Kwork" } },
+  { value: "auto-years", label: null },
+  { value: null, label: { ru: "млн строк в обработке", en: "million rows processed" } },
+  { value: "4", label: { ru: "проекта в портфолио", en: "portfolio projects" } },
+];
+
+const JOBS = [
+  {
+    role: { ru: "Аналитик данных", en: "Data analyst" },
+    org: "Raqamli Rivojlanish Departamenti",
+    orgNote: { ru: "Департамент цифрового развития, Ташкент", en: "Digital Development Department, Tashkent" },
+    start: "2025-11", end: null,
+    bullets: [
+      { ru: "Построил 300+ открытых дашбордов в Visiology для жителей Ташкента: KPI, фильтры и детализация по районам.", en: "Built 300+ public Visiology dashboards for the people of Tashkent, with KPIs, filters and district drill-downs.", tags: ["Visiology", "SQL"] },
+      { ru: "Пишу сложные SQL-запросы с CTE и оконными функциями в PostgreSQL и ClickHouse на больших наборах данных.", en: "Write complex SQL with CTEs and window functions in PostgreSQL and ClickHouse over large datasets.", tags: ["SQL", "PostgreSQL", "ClickHouse"] },
+      { ru: "Проектирую и оптимизирую OLAP-запросы и витрины данных, чтобы отчёты строились быстрее.", en: "Design and tune OLAP queries and data marts so reports load faster.", tags: ["SQL", "ClickHouse"] },
+      { ru: "Создаю и поддерживаю ETL-процессы, которые собирают и трансформируют данные из разных источников.", en: "Build and maintain ETL processes that collect and transform data from multiple sources.", tags: ["ETL", "Python", "SQL"] },
+      { ru: "Проверяю качество данных: полноту, дубликаты и расхождения между источниками.", en: "Validate data quality: completeness, duplicates and mismatches between sources.", tags: ["SQL", "Excel"] },
+    ],
+  },
+  {
+    role: { ru: "Python-разработчик, автоматизация данных", en: "Python developer, data automation" },
+    org: "Kwork",
+    orgNote: { ru: "Фриланс, удалённо", en: "Freelance, remote" },
+    start: "2023-08", end: "2025-11",
+    bullets: [
+      { ru: "Выполнил заказы для 80 клиентов: парсеры, ETL-скрипты, Telegram-боты и интеграции.", en: "Delivered projects for 80 clients: scrapers, ETL scripts, Telegram bots and integrations.", tags: ["Python", "ETL"] },
+      { ru: "Собирал данные с сайтов через BeautifulSoup, Selenium и Requests и выгружал их в PostgreSQL, Excel и Google Sheets.", en: "Scraped websites with BeautifulSoup, Selenium and Requests and loaded data into PostgreSQL, Excel and Google Sheets.", tags: ["Python", "PostgreSQL", "Excel", "ETL"] },
+      { ru: "Автоматизировал очистку и трансформацию данных в pandas с загрузкой по расписанию.", en: "Automated data cleaning and transformation in pandas with scheduled loads.", tags: ["Python", "ETL"] },
+      { ru: "Интегрировал REST API и OpenAI API в ботов и внутренние инструменты клиентов.", en: "Integrated REST APIs and the OpenAI API into bots and client tools.", tags: ["Python", "API"] },
+    ],
+  },
+];
+
+const EDUCATION_BAR = {
+  role: { ru: "Бакалавр, Business IT", en: "BSc Business IT" },
+  org: { ru: "Университет Ковентри", en: "Coventry University" },
+  start: "2024-09", end: "2028-06",
+};
+
+// Добавляйте дашборды сюда. hero: true — показывается живым на первом экране.
+const DASHBOARDS = [
+  {
+    hero: true,
+    title: { ru: "Зелёные насаждения Ташкента", en: "Tashkent green plantings" },
+    stat: "1 129 815",
+    statLabel: { ru: "насаждений на карте города", en: "plantings mapped across the city" },
+    note: { ru: "12 районов, 93% проверено дендрологом (данные на 11.09.2026)", en: "12 districts, 93% verified by arborists (as of 11 Sep 2026)" },
+    url: "https://bi-dev.tashkent.uz/viewer/public?dashboardGuid=2ed46ab6b4824e79b6a2ab806c80d5b5",
+    tags: ["Visiology", "SQL"],
+  },
+  { url: "" }, { url: "" }, { url: "" }, { url: "" }, { url: "" },
+];
+const SHOW_EMPTY_SLOTS = true; // false — скрыть пустые слоты перед публикацией
+
+// draft: true — пометка «черновик», пока проект не описан
+const PROJECTS = [
+  { draft: true, title: { ru: "Проект 1: дашборд в Power BI", en: "Project 1: Power BI dashboard" }, desc: { ru: "Задача, данные и результат. Модель данных, DAX-меры, Power Query.", en: "Goal, data and outcome. Data model, DAX measures, Power Query." }, tags: ["Power BI", "DAX", "Power Query", "Excel"], url: "" },
+  { draft: true, title: { ru: "Проект 2: анализ в BigQuery и Tableau", en: "Project 2: BigQuery and Tableau analysis" }, desc: { ru: "Задача, данные и результат. SQL в BigQuery, визуализация в Tableau.", en: "Goal, data and outcome. SQL in BigQuery, visuals in Tableau." }, tags: ["BigQuery", "SQL", "Tableau"], url: "" },
+  { draft: true, title: { ru: "Проект 3: ETL-пайплайн", en: "Project 3: ETL pipeline" }, desc: { ru: "Задача, данные и результат. Парсинг, очистка, загрузка в PostgreSQL.", en: "Goal, data and outcome. Scraping, cleaning, loading into PostgreSQL." }, tags: ["Python", "ETL", "PostgreSQL", "API"], url: "" },
+  { draft: true, title: { ru: "Проект 4", en: "Project 4" }, desc: { ru: "Задача, данные и результат.", en: "Goal, data and outcome." }, tags: ["SQL", "Python"], url: "" },
+];
+
+const EDUCATION = [
+  { title: { ru: "Бакалавр, информационные технологии в бизнесе", en: "BSc Business Information Technology" }, text: { ru: "Университет Ковентри, Ташкент. 2024–2028", en: "Coventry University, Tashkent. 2024–2028" } },
+];
+
+const CERTS = [
+  { title: { ru: "IELTS 7.5", en: "IELTS 7.5" }, text: { ru: "Английский, уровень C1", en: "English, C1 level" } },
+  { title: { ru: "Курс Data Science", en: "Data Science course" }, text: { ru: "Итоговая оценка 85 из 100", en: "Final score 85 out of 100" } },
+];
+
+// level: 1..6 = A1..C2, 7 = родной
+const LANGS = [
+  { name: { ru: "Узбекский", en: "Uzbek" }, level: 7 },
+  { name: { ru: "Русский", en: "Russian" }, level: 5 },
+  { name: { ru: "Английский", en: "English" }, level: 5, note: "IELTS 7.5" },
+  { name: { ru: "Арабский", en: "Arabic" }, level: 1 },
+];
+
+// Темы: цвет акцента (по кругу) и фон
+const ACCENTS = [
+  { id: "black", swatch: "#000000", label: { ru: "Чёрный", en: "Black" } },
+  { id: "cyan", swatch: "#00E5FF", label: { ru: "Циан", en: "Cyan" } },
+  { id: "lime", swatch: "#CCFF00", label: { ru: "Лайм", en: "Lime" } },
+];
+const BACKGROUNDS = [
+  { id: "paper", swatch: "#F7F2E6", label: { ru: "Бумага", en: "Paper" } },
+  { id: "dark", swatch: "#101114", label: { ru: "Графит", en: "Graphite" } },
+];
+
+/* =====================================================================
+   ТЕКСТЫ ИНТЕРФЕЙСА
+   ===================================================================== */
+const UI = {
+  ru: {
+    brand: "Толипов Дилмурод, резюме",
+    updated: "Обновлено",
+    pdf: "Скачать PDF",
+    accentAria: (cur, next) => `Цвет: ${cur}. Переключить на «${next}»`,
+    bgAria: (cur, next) => `Фон: ${cur}. Переключить на «${next}»`,
+    filter: "Фильтр по стеку",
+    reset: "Сбросить",
+    share: "Скопировать ссылку",
+    copied: "Ссылка с фильтром скопирована",
+    countAll: (n) => `Всего фактов: <b>${n}</b>`,
+    countSel: (h, n) => `Совпадений: <b>${h}</b> из ${n}`,
+    role: "Data / BI-аналитик",
+    summary: "Делаю открытые дашборды для жителей Ташкента. Пишу SQL для PostgreSQL, ClickHouse и BigQuery, собираю ETL-процессы на Python и превращаю данные в понятные отчёты в Visiology, Power BI, Tableau и Excel.",
+    city: "Ташкент, Узбекистан. Готов к офису, гибриду и удалёнке",
+    live: "Живой дашборд",
+    openFull: "Открыть на весь экран",
+    years: ["год с данными", "года с данными", "лет с данными"],
+    expTitle: "Опыт",
+    expNote: "Три года работы с данными: сначала автоматизация и парсинг на фрилансе, теперь аналитика и BI для города.",
+    ganttTitle: "Карьера на временной шкале",
+    ganttSub: "Вертикальная линия показывает сегодняшний день",
+    legDone: "пройдено",
+    legPlan: "запланировано",
+    present: "сейчас",
+    today: "Сегодня",
+    mo: ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"],
+    dur: (y, m) => [y ? `${y} ${plural(y, ["год", "года", "лет"])}` : "", m ? `${m} мес.` : ""].filter(Boolean).join(" "),
+    stack: "Стек",
+    dashTitle: "Дашборды",
+    dashNote: "Открытые дашборды, которыми пользуются жители Ташкента. Каждый можно открыть прямо здесь.",
+    viewHere: "Смотреть здесь",
+    newTab: "Открыть в новой вкладке",
+    close: "Закрыть",
+    slot: "Место для дашборда",
+    slotText: "Добавьте ссылку в массив DASHBOARDS в index.html",
+    skillsTitle: "Проекты и навыки",
+    skillsNote: "Нажмите на инструмент в матрице или в фильтре сверху, чтобы увидеть, где он применялся.",
+    projTitle: "Проекты",
+    projSub: "Самостоятельные работы с полным циклом: от данных до отчёта",
+    draft: "черновик",
+    openProj: "Открыть",
+    mxTitle: "Где применял инструменты",
+    mxSub: "Считается автоматически из опыта и проектов",
+    mxCols: ["Работа", "Фриланс", "Проекты"],
+    aboutTitle: "Обо мне",
+    eduTitle: "Образование",
+    eduSub: "Обучение продолжается",
+    certTitle: "Сертификаты",
+    certSub: "Подтверждённые результаты",
+    langTitle: "Языки",
+    langSub: "По шкале CEFR",
+    native: "родной",
+    schemaTitle: "Резюме как модель данных",
+    schemaSub: "Схема «звезда»: всё на этой странице собрано из одной таблицы фактов",
+    contactTitle: "Связаться",
+    contactSub: "Отвечаю в течение дня",
+    foot: "Страница собрана вручную на HTML, CSS и JavaScript. Данные дашбордов принадлежат их публичным источникам.",
+    pages: { overview: "Обзор", experience: "Опыт", dashboards: "Дашборды", projects: "Проекты и навыки", about: "Обо мне" },
+    mail: "Написать на почту",
+    call: "Позвонить",
+  },
+  en: {
+    brand: "Dilmurod Tolipov, resume",
+    updated: "Updated",
+    pdf: "Download PDF",
+    accentAria: (cur, next) => `Color: ${cur}. Switch to ${next}`,
+    bgAria: (cur, next) => `Background: ${cur}. Switch to ${next}`,
+    filter: "Filter by stack",
+    reset: "Reset",
+    share: "Copy link",
+    copied: "Filtered link copied",
+    countAll: (n) => `Facts on page: <b>${n}</b>`,
+    countSel: (h, n) => `Matches: <b>${h}</b> of ${n}`,
+    role: "Data / BI analyst",
+    summary: "I build public dashboards for the people of Tashkent. I write SQL for PostgreSQL, ClickHouse and BigQuery, build ETL pipelines in Python, and turn data into clear reports in Visiology, Power BI, Tableau and Excel.",
+    city: "Tashkent, Uzbekistan. Open to office, hybrid and remote",
+    live: "Live dashboard",
+    openFull: "Open full screen",
+    years: ["year in data", "years in data", "years in data"],
+    expTitle: "Experience",
+    expNote: "Three years with data: first automation and scraping as a freelancer, now analytics and BI for the city.",
+    ganttTitle: "Career timeline",
+    ganttSub: "The vertical line marks today",
+    legDone: "completed",
+    legPlan: "planned",
+    present: "present",
+    today: "Today",
+    mo: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    dur: (y, m) => [y ? `${y} yr` : "", m ? `${m} mo` : ""].filter(Boolean).join(" "),
+    stack: "Stack",
+    dashTitle: "Dashboards",
+    dashNote: "Public dashboards used by the people of Tashkent. Open any of them right here.",
+    viewHere: "View here",
+    newTab: "Open in new tab",
+    close: "Close",
+    slot: "Dashboard slot",
+    slotText: "Add a link to the DASHBOARDS array in index.html",
+    skillsTitle: "Projects and skills",
+    skillsNote: "Pick a tool in the matrix or the filter above to see where it was used.",
+    projTitle: "Projects",
+    projSub: "Independent end-to-end work, from raw data to report",
+    draft: "draft",
+    openProj: "Open",
+    mxTitle: "Where each tool was used",
+    mxSub: "Calculated from experience and projects",
+    mxCols: ["Job", "Freelance", "Projects"],
+    aboutTitle: "About",
+    eduTitle: "Education",
+    eduSub: "In progress",
+    certTitle: "Certificates",
+    certSub: "Verified results",
+    langTitle: "Languages",
+    langSub: "CEFR scale",
+    native: "native",
+    schemaTitle: "Resume as a data model",
+    schemaSub: "A star schema: everything on this page comes from one fact table",
+    contactTitle: "Get in touch",
+    contactSub: "I reply within a day",
+    foot: "Hand-built with HTML, CSS and JavaScript. Dashboard data belongs to its public sources.",
+    pages: { overview: "Overview", experience: "Experience", dashboards: "Dashboards", projects: "Projects and skills", about: "About" },
+    mail: "Send an email",
+    call: "Call",
+  },
+};
+
+/* =====================================================================
+   ЛОГИКА
+   ===================================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const params = new URLSearchParams(location.search);
+let lang = params.get("lang") === "en" ? "en" : "ru";
+const ALL_TOOLS = STACK.flatMap((g) => g.items);
+let selected = new Set((params.get("stack") || "").split(",").filter((t) => ALL_TOOLS.includes(t)));
+
+const L = (o) => (o == null ? "" : typeof o === "string" ? o : o[lang] ?? o.ru);
+const T = (k) => UI[lang][k];
+function plural(n, f) {
+  const a = n % 100, b = n % 10;
+  if (a > 10 && a < 20) return f[2];
+  if (b === 1) return f[0];
+  if (b >= 2 && b <= 4) return f[1];
+  return f[2];
+}
+const ym = (s) => { const [y, m] = s.split("-").map(Number); return { y, m }; };
+const now = new Date();
+const nowYM = { y: now.getFullYear(), m: now.getMonth() + 1 };
+const monthsBetween = (a, b) => (b.y - a.y) * 12 + (b.m - a.m);
+const fmtYM = (s) => { const { y, m } = ym(s); return `${T("mo")[m - 1]} ${y}`; };
+const tagsHTML = (tags) => (tags || []).map((t) => `<span class="tag" data-tag="${esc(t)}">${esc(t)}</span>`).join("");
+const fx = (tags) => `class="fx" data-tags="${esc((tags || []).join("|"))}"`;
+
+const ICONS = {
+  mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="m3 6 9 7 9-7"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>',
+  tg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4"/></svg>',
+  in: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18"/><path d="M8 11v5M8 8v.01M12 16v-5M16 16v-3a2 2 0 0 0-4 0"/></svg>',
+  gh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>',
+};
+
+/* ---------- темы ---------- */
+const root = document.documentElement;
+const idx = (list, id) => Math.max(0, list.findIndex((x) => x.id === id));
+function renderThemeButtons() {
+  const a = ACCENTS[idx(ACCENTS, root.dataset.accent)];
+  const aNext = ACCENTS[(idx(ACCENTS, a.id) + 1) % ACCENTS.length];
+  const b = BACKGROUNDS[idx(BACKGROUNDS, root.dataset.bg)];
+  const bNext = BACKGROUNDS[(idx(BACKGROUNDS, b.id) + 1) % BACKGROUNDS.length];
+  const bars = (list, cur) => list.map((x) => `<i style="background:${x.swatch};height:${x.id === cur ? 14 : 7}px"></i>`).join("");
+  $("#accent-sw").innerHTML = bars(ACCENTS, a.id);
+  $("#accent-lbl").textContent = L(a.label);
+  $("#accent-btn").setAttribute("aria-label", T("accentAria")(L(a.label), L(aNext.label)));
+  $("#bg-sw").innerHTML = bars(BACKGROUNDS, b.id);
+  $("#bg-lbl").textContent = L(b.label);
+  $("#bg-btn").setAttribute("aria-label", T("bgAria")(L(b.label), L(bNext.label)));
+}
+function setTheme(key, list) {
+  root.classList.add("theming");
+  clearTimeout(setTheme.t);
+  setTheme.t = setTimeout(() => root.classList.remove("theming"), 450);
+  root.dataset[key] = list[(idx(list, root.dataset[key]) + 1) % list.length].id;
+  try { localStorage.setItem("theme", JSON.stringify({ accent: root.dataset.accent, bg: root.dataset.bg })); } catch (_) {}
+  renderThemeButtons();
+}
+$("#accent-btn").onclick = () => setTheme("accent", ACCENTS);
+$("#bg-btn").onclick = () => setTheme("bg", BACKGROUNDS);
+
+function renderStatic() {
+  root.lang = lang;
+  $$("[data-t]").forEach((el) => { const v = T(el.dataset.t); if (typeof v === "string") el.textContent = v; });
+  $$(".seg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  document.title = lang === "ru" ? "Толипов Дилмурод — Data / BI-аналитик" : "Dilmurod Tolipov — Data / BI analyst";
+  const [uy, um, ud] = PROFILE.updated.split("-");
+  $("#updated").textContent = `${T("updated")} ${ud}.${um}.${uy}`;
+  $("#pdf").href = L(PROFILE.pdf) || "#";
+  $("#pdf").hidden = !L(PROFILE.pdf);
+  $("#hero-name").innerHTML = `<span>${esc(L(PROFILE.first))}</span><span>${esc(L(PROFILE.last))}</span>`;
+  renderThemeButtons();
+
+  const contacts = [
+    { href: `mailto:${PROFILE.email}`, icon: ICONS.mail, label: T("mail"), fill: true },
+    { href: `tel:${PROFILE.phone.replace(/\s/g, "")}`, icon: ICONS.phone, label: T("call") },
+    PROFILE.telegram && { href: PROFILE.telegram, icon: ICONS.tg, label: "Telegram", ext: true },
+    PROFILE.linkedin && { href: PROFILE.linkedin, icon: ICONS.in, label: "LinkedIn", ext: true },
+    PROFILE.github && { href: PROFILE.github, icon: ICONS.gh, label: "GitHub", ext: true },
+  ].filter(Boolean);
+  $("#contacts").innerHTML = contacts.map((c) => `<a class="btn${c.fill ? " btn-fill" : ""}" href="${esc(c.href)}"${c.ext ? ' target="_blank" rel="noopener"' : ""}>${c.icon}${esc(c.label)}</a>`).join("");
+  $("#contacts-2").innerHTML = contacts.filter((c) => c.ext).map((c) => `<a class="btn" href="${esc(c.href)}" target="_blank" rel="noopener">${c.icon}${esc(c.label)}</a>`).join("");
+  $("#c-mail").textContent = PROFILE.email; $("#c-mail").href = `mailto:${PROFILE.email}`;
+  $("#c-phone").textContent = PROFILE.phone; $("#c-phone").href = `tel:${PROFILE.phone.replace(/\s/g, "")}`;
+
+  // slicer
+  $("#slicer").innerHTML = STACK.map((g) => `<div class="f-group" role="group" aria-label="${esc(L(g.group))}"><span class="f-group-name">${esc(L(g.group))}</span>${g.items.map((t) => `<button type="button" class="chip" data-tool="${esc(t)}" aria-pressed="false">${esc(t)}</button>`).join("")}</div>`).join("");
+
+  // hero live dashboard
+  const hero = DASHBOARDS.find((d) => d.hero && d.url);
+  if (hero) {
+    const live = $("#live");
+    live.dataset.tags = hero.tags.join("|");
+    const fr = $("#live-frame");
+    if (fr.getAttribute("src") !== hero.url) fr.src = hero.url;
+    fr.title = L(hero.title);
+    $("#live-title").textContent = L(hero.title);
+    $("#live-note").textContent = L(hero.note);
+    $("#live-tags").innerHTML = tagsHTML(hero.tags);
+    $("#live-open").setAttribute("aria-label", `${T("openFull")}: ${L(hero.title)}`);
+    $("#live-open").onclick = $("#live-btn").onclick = () => openDash(hero);
+  } else {
+    $("#live").hidden = true;
+  }
+
+  // KPIs
+  const yrs = Math.floor(monthsBetween(ym(PROFILE.careerStart), nowYM) / 12);
+  $("#kpis").innerHTML = KPIS.map((k) => {
+    if (k.value === "auto-years") return `<div class="kpi"><p class="kpi-v num">${yrs}</p><p class="kpi-l">${plural(yrs, T("years"))}</p></div>`;
+    return `<div class="kpi"><p class="kpi-v num${k.value == null ? " todo" : ""}">${k.value == null ? "—" : esc(k.value)}</p><p class="kpi-l">${esc(L(k.label))}</p></div>`;
+  }).join("");
+
+  // Gantt
+  const START = { y: 2023, m: 1 }, SPAN = 72;
+  const pos = (s) => (monthsBetween(START, typeof s === "string" ? ym(s) : s) / SPAN) * 100;
+  const todayPos = Math.min(100, pos(nowYM));
+  const rows = [
+    ...JOBS.map((j) => ({ label: L(j.role), sub: j.org, start: j.start, end: j.end, tags: [...new Set(j.bullets.flatMap((b) => b.tags))] })),
+    { label: L(EDUCATION_BAR.role), sub: L(EDUCATION_BAR.org), start: EDUCATION_BAR.start, end: EDUCATION_BAR.end, tags: [], edu: true },
+  ].sort((a, b) => a.start.localeCompare(b.start));
+  $("#gantt").innerHTML = rows.map((r, i) => {
+    const l = pos(r.start);
+    const endPos = r.end ? pos(r.end) : todayPos;
+    const doneEnd = Math.min(endPos, todayPos);
+    const dates = `${fmtYM(r.start)} — ${r.end ? fmtYM(r.end) : T("present")}`;
+    const bars = [`<div class="g-bar" style="left:${l}%;width:${doneEnd - l}%;animation-delay:${i * 140}ms"></div>`];
+    if (endPos > todayPos) bars.push(`<div class="g-bar plan" style="left:${todayPos}%;width:${endPos - todayPos}%;animation-delay:${i * 140 + 500}ms"></div>`);
+    return `<div class="g-row fx" data-tags="${esc(r.tags.join("|"))}" ${r.edu ? 'data-neutral="1"' : ""}>
+      <div class="g-label"><b>${esc(r.label)}</b><span>${esc(r.sub)}</span></div>
+      <div class="g-track"><span class="g-dates" style="left:${l}%">${esc(dates)}</span>${bars.join("")}<span class="g-today" style="left:${todayPos}%"></span></div>
+    </div>`;
+  }).join("") + `<div class="g-axis"><span></span><div class="g-years">${Array.from({ length: 6 }, (_, i) => `<span style="left:${(i / 6) * 100}%">${2023 + i}</span>`).join("")}<span class="g-today-l" style="left:${todayPos}%">${T("today")}</span></div></div>`;
+
+  // Jobs
+  $("#jobs").innerHTML = JOBS.map((j) => {
+    const m = monthsBetween(ym(j.start), j.end ? ym(j.end) : nowYM) + (j.end ? 0 : 1);
+    const stack = [...new Set(j.bullets.flatMap((b) => b.tags))];
+    return `<article class="tile s6">
+      <div class="job-head"><h3 class="job-role">${esc(L(j.role))}</h3><span class="job-dur num">${esc(T("dur")(Math.floor(m / 12), m % 12))}</span></div>
+      <p class="job-org">${esc(j.org)}</p>
+      <p class="job-meta">${esc(L(j.orgNote))}. ${esc(fmtYM(j.start))} — ${esc(j.end ? fmtYM(j.end) : T("present"))}</p>
+      <ul class="bul">${j.bullets.map((b) => `<li ${fx(b.tags)} data-fact="1">${esc(L(b))}</li>`).join("")}</ul>
+      <div class="tags" aria-label="${esc(T("stack"))}">${tagsHTML(stack)}</div>
+    </article>`;
+  }).join("");
+
+  // Gallery
+  let slotN = 1;
+  $("#gallery").innerHTML = DASHBOARDS.map((d, i) => {
+    if (d.url) {
+      slotN++;
+      return `<article class="tile s4 inverse dash fx" data-tags="${esc(d.tags.join("|"))}" data-fact="1">
+        <div><div class="tags" style="margin-bottom:18px">${tagsHTML(d.tags)}</div>
+        <p class="dash-stat num">${esc(d.stat || "")}</p><p class="dash-statl">${esc(L(d.statLabel))}</p></div>
+        <div><h3>${esc(L(d.title))}</h3><p class="dash-note">${esc(L(d.note))}</p>
+        <div class="dash-actions"><button type="button" class="btn btn-fill" data-dash="${i}">${esc(T("viewHere"))}</button><a class="btn" href="${esc(d.url)}" target="_blank" rel="noopener">${esc(T("newTab"))}</a></div></div>
+      </article>`;
+    }
+    if (!SHOW_EMPTY_SLOTS) return "";
+    const n = slotN++;
+    return `<div class="tile s4 slot"><p class="slot-n num">#${n}</p><b>${esc(T("slot"))}</b><p>${esc(T("slotText"))}</p></div>`;
+  }).join("");
+  $$("[data-dash]").forEach((b) => (b.onclick = () => openDash(DASHBOARDS[+b.dataset.dash])));
+
+  // Projects
+  $("#proj-list").innerHTML = PROJECTS.map((p) => `<article class="proj fx" data-tags="${esc(p.tags.join("|"))}" data-fact="1">
+    <h3>${esc(L(p.title))}</h3>
+    ${p.url ? `<a class="btn" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(T("openProj"))}</a>` : p.draft ? `<span class="draft">${esc(T("draft"))}</span>` : "<span></span>"}
+    <p>${esc(L(p.desc))}</p>
+    <div class="tags">${tagsHTML(p.tags)}</div>
+  </article>`).join("");
+
+  // Matrix
+  const jobTags = JOBS.map((j) => j.bullets.flatMap((b) => b.tags));
+  const projTags = [...PROJECTS.flatMap((p) => p.tags), ...DASHBOARDS.filter((d) => d.url).flatMap((d) => d.tags)];
+  const cols = T("mxCols");
+  $("#matrix").innerHTML = `<thead><tr><th scope="col"><span class="sr-only">${esc(T("stack"))}</span></th>${cols.map((c) => `<th scope="col">${esc(c)}</th>`).join("")}</tr></thead><tbody>` +
+    ALL_TOOLS.map((t) => {
+      const v = [jobTags[0].includes(t), jobTags[1].includes(t), projTags.includes(t)];
+      return `<tr class="fx" data-tags="${esc(t)}"><td><button type="button" class="mx-name" data-tool="${esc(t)}">${esc(t)}</button></td>${v.map((x, i) => `<td aria-label="${esc(cols[i])}: ${x ? "✓" : "—"}"><span class="cell${x ? "" : " no"}"></span></td>`).join("")}</tr>`;
+    }).join("") + "</tbody>";
+  $("#schema-skills").textContent = `${ALL_TOOLS.length} rows`;
+
+  // About
+  $("#edu").innerHTML = EDUCATION.map((e) => `<div class="edu"><b>${esc(L(e.title))}</b><p>${esc(L(e.text))}</p></div>`).join("");
+  $("#certs").innerHTML = CERTS.map((e) => `<div class="edu"><b>${esc(L(e.title))}</b><p>${esc(L(e.text))}</p></div>`).join("");
+  const lv = ["A1", "A2", "B1", "B2", "C1", "C2"];
+  $("#langs").innerHTML = LANGS.map((x) => `<div class="lang">
+    <b>${esc(L(x.name))}</b><span>${x.level === 7 ? esc(T("native")) : lv[x.level - 1]}${x.note ? `, ${esc(x.note)}` : ""}</span>
+    <div class="cefr" aria-hidden="true">${lv.map((_, i) => `<i class="${i < Math.min(x.level, 6) ? "on" : ""}"></i>`).join("")}</div>
+  </div>`).join("") + `<div class="cefr-l" aria-hidden="true" style="margin-top:6px">${lv.map((v) => `<i>${v}</i>`).join("")}</div>`;
+
+  // Pages
+  const P = T("pages");
+  $("#pages").innerHTML = Object.keys(P).map((id) => `<a href="#${id}" data-pg="${id}">${esc(P[id])}</a>`).join("");
+
+  bindTools();
+  applyFilter();
+  sizeLive();
+  observePages();
+}
+
+function bindTools() {
+  $$("[data-tool]").forEach((b) => (b.onclick = () => {
+    const t = b.dataset.tool;
+    selected.has(t) ? selected.delete(t) : selected.add(t);
+    applyFilter(); syncURL();
+  }));
+}
+
+function applyFilter() {
+  const on = selected.size > 0;
+  $$(".chip").forEach((c) => c.setAttribute("aria-pressed", String(selected.has(c.dataset.tool))));
+  $$(".tag").forEach((t) => t.classList.toggle("hit", selected.has(t.dataset.tag)));
+  let hits = 0, total = 0;
+  $$(".fx").forEach((el) => {
+    const tags = (el.dataset.tags || "").split("|").filter(Boolean);
+    const match = tags.some((t) => selected.has(t));
+    const neutral = el.dataset.neutral === "1";
+    el.classList.toggle("is-dim", on && !match && !neutral);
+    if (el.matches("tr")) el.classList.toggle("hit", on && match);
+    if (el.dataset.fact) { total++; if (match) hits++; }
+  });
+  $("#count").innerHTML = on ? T("countSel")(hits, total) : T("countAll")(total);
+  $("#reset").hidden = $("#share").hidden = !on;
+}
+
+function syncURL() {
+  const p = new URLSearchParams();
+  if (selected.size) p.set("stack", [...selected].join(","));
+  if (lang !== "ru") p.set("lang", lang);
+  const q = p.toString();
+  history.replaceState(null, "", q ? `?${q}${location.hash}` : location.pathname + location.hash);
+}
+
+function openDash(d) {
+  $("#dlg-title").textContent = L(d.title);
+  $("#dlg-new").href = d.url;
+  $("#dlg-frame").title = L(d.title);
+  $("#dlg-frame").src = d.url;
+  $("#dlg").showModal();
+}
+$("#dlg-close").onclick = () => $("#dlg").close();
+$("#dlg").addEventListener("close", () => { $("#dlg-frame").src = "about:blank"; });
+$("#dlg").addEventListener("click", (e) => { if (e.target === $("#dlg")) $("#dlg").close(); });
+
+function sizeLive() {
+  const scr = $("#live-screen"), fr = $("#live-frame");
+  if (!scr || !fr) return;
+  fr.style.transform = `scale(${scr.clientWidth / 1440})`;
+}
+new ResizeObserver(sizeLive).observe($("#live-screen"));
+
+let pageObs;
+function observePages() {
+  pageObs?.disconnect();
+  const links = $$("#pages a");
+  pageObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) links.forEach((a) => a.setAttribute("aria-current", String(a.dataset.pg === e.target.id)));
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  $$("[data-page]").forEach((s) => pageObs.observe(s));
+}
+
+$("#reset").onclick = () => { selected.clear(); applyFilter(); syncURL(); };
+$("#share").onclick = async () => {
+  syncURL();
+  try { await navigator.clipboard.writeText(location.href); } catch (_) {}
+  const t = $("#toast"); t.textContent = T("copied"); t.hidden = false;
+  clearTimeout(t._h); t._h = setTimeout(() => (t.hidden = true), 2200);
+};
+$$(".seg button").forEach((b) => (b.onclick = () => { lang = b.dataset.lang; renderStatic(); syncURL(); }));
+
+renderStatic();
+</script>
+</body>
+</html>

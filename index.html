@@ -2,7 +2,7 @@
 <html lang="ru" data-accent="lime" data-bg="dark">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Толипов Дилмурод — Data / BI-аналитик</title>
 <meta name="description" content="Резюме-дашборд Data / BI-аналитика: SQL, PostgreSQL, ClickHouse, BigQuery, Power BI, Tableau, Visiology, Excel, Python.">
 <meta property="og:title" content="Толипов Дилмурод — Data / BI-аналитик">
@@ -236,7 +236,8 @@ section{padding:clamp(40px,6vw,72px) 0 0}
 .cefr{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
 .cefr i{display:block;height:8px;border:1px solid var(--line)}
 .cefr i.on{background:var(--fill)}
-.cefr-l{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,1fr);gap:3px;font-size:10.5px;color:var(--fg-3);font-style:normal}
+.cefr-l{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,1fr);gap:3px;font-size:12px;color:var(--fg-3)}
+.cefr-l i{font-style:normal}
 .edu b{display:block;font-size:17px;font-weight:700;line-height:1.3}
 .edu p{font-size:14px;color:var(--fg-2);margin-top:4px}
 .edu + .edu{margin-top:16px;padding-top:16px;border-top:1px solid var(--soft)}
@@ -260,6 +261,7 @@ section{padding:clamp(40px,6vw,72px) 0 0}
 .pages a:first-child{border-left:1px solid var(--soft)}
 .pages a:hover{background:var(--soft)}
 .pages a[aria-current="true"]{background:var(--fill);color:var(--on-fill)}
+.pg-short{display:none}
 
 dialog{border:var(--bw) solid var(--fill);padding:0;background:var(--fill);color:var(--on-fill);width:min(1500px,96vw);height:min(940px,92vh);max-width:none;max-height:none}
 dialog::backdrop{background:rgba(0,0,0,.72)}
@@ -280,24 +282,64 @@ dialog::backdrop{background:rgba(0,0,0,.72)}
 @media (max-width:860px){
   .hero-grid{grid-template-columns:1fr}
   .s6,.s4{grid-column:span 12}
-  .filters .wrap{flex-wrap:wrap;gap:8px 16px}
-  .f-title{display:none}
-  .f-groups{order:2;flex-basis:100%;flex-wrap:nowrap;overflow-x:auto}
-  .f-meta{order:1;width:100%;justify-content:space-between}
-  html{scroll-padding-top:170px}
-  .top-actions .btn span:not(.sw){display:none}
+  html{scroll-padding-top:124px}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+
+  /* шапка уезжает при прокрутке, закреплён только фильтр */
+  .topbar{position:relative}
+  .topbar .wrap{height:60px}
+  .brand{min-height:44px;min-width:44px}
+  .mx td{height:44px}
+  .mx-name{min-height:44px}
   .top-actions{gap:6px}
+  .top-actions .btn{min-width:44px;min-height:44px;justify-content:center;padding:0 10px}
+  .top-actions .btn span:not(.sw){display:none}
+  .seg button{min-width:44px;min-height:44px}
+
+  .filters{top:0}
+  .filters .wrap{flex-wrap:wrap;gap:2px 12px;min-height:0;padding-top:4px;padding-bottom:10px}
+  .f-title{display:none}
+  .f-meta{order:1;width:100%;justify-content:space-between;min-height:36px}
+  .linkbtn{padding:10px 6px}
+  .f-groups{order:2;flex-basis:auto;width:calc(100% + var(--pad) * 2);margin:0 calc(var(--pad) * -1);padding:2px 40px 2px var(--pad);flex-wrap:nowrap;overflow-x:auto;scroll-padding-inline:var(--pad);-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 36px),transparent)}
+  .chip{min-height:44px;padding:0 14px;font-size:14px}
+  .btn{min-height:44px}
+
+  /* Гант: подпись над полосой, шкала на всю ширину без горизонтальной прокрутки */
+  .gantt{min-width:0}
+  .g-row{grid-template-columns:1fr;gap:4px;padding:14px 0 8px}
+  .g-track{margin-top:22px}
+  .g-axis{grid-template-columns:1fr;gap:0}
+  .g-axis > span:first-child{display:none}
+  .g-today-l{display:none}
+
+  .schema-scroll svg{min-width:560px}
+
+  .pages{padding-bottom:env(safe-area-inset-bottom)}
+  .pages .wrap{padding:0;height:56px}
+  .pages a,.pages a:first-child{flex:1 1 0;justify-content:center;text-align:center;padding:0 2px;font-size:13px;border-left:0}
+  .pages a:last-child{border-right:0}
+  .pg-long{display:none}
+  .pg-short{display:inline}
+
+  dialog{width:100vw;height:100dvh;max-width:100vw;max-height:100dvh;margin:0;border:0}
+  .dlg-bar{flex-wrap:wrap;padding:calc(10px + env(safe-area-inset-top)) 12px 10px}
+  .dlg-bar h2{flex-basis:100%;white-space:normal}
+  .dlg-bar > div{width:100%}
+  .dlg-bar .btn{flex:1;justify-content:center}
 }
 @media (max-width:560px){
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kpi{border-left:0;border-top:1px solid var(--fill-line)}
   .kpi:nth-child(-n+2){border-top:0}
   .kpi:nth-child(even){border-left:1px solid var(--fill-line)}
+  .kpi:last-child:nth-child(odd){grid-column:1/-1}
   .tile{padding:18px}
   .brand-name{display:none}
-  .gantt{min-width:540px}
-  .g-row,.g-axis{grid-template-columns:140px minmax(0,1fr);gap:12px}
-  .g-label b{font-size:13px}
+  .hero-contacts .btn{flex:1 1 auto;justify-content:center}
+  .dash{min-height:0}
+  .slot{min-height:150px}
+  .g-label b{font-size:14px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before{animation:none!important;transition:none!important}
@@ -462,6 +504,7 @@ dialog::backdrop{background:rgba(0,0,0,.72)}
         <div class="tile s7 schema">
           <p class="tile-title" data-t="schemaTitle"></p>
           <p class="tile-sub" data-t="schemaSub"></p>
+          <div class="scroll-x schema-scroll">
           <svg viewBox="0 0 640 300" role="img" aria-labelledby="schema-desc">
             <desc id="schema-desc">fact_career в центре, связан с dim_date, dim_company, dim_skill, dim_project и dim_language</desc>
             <g class="sch-l">
@@ -490,6 +533,7 @@ dialog::backdrop{background:rgba(0,0,0,.72)}
               <text class="sch-t" x="259" y="265" font-weight="700" font-size="14">dim_language</text><text class="sch-s" x="259" y="284">4 rows</text>
             </g>
           </svg>
+          </div>
         </div>
         <div class="tile s5 inverse" style="display:flex;flex-direction:column;justify-content:space-between;gap:24px">
           <div>
@@ -708,6 +752,7 @@ const UI = {
     contactSub: "Отвечаю в течение дня",
     foot: "Страница собрана вручную на HTML, CSS и JavaScript. Данные дашбордов принадлежат их публичным источникам.",
     pages: { overview: "Обзор", experience: "Опыт", dashboards: "Дашборды", projects: "Проекты и навыки", about: "Обо мне" },
+    pagesShort: { overview: "Обзор", experience: "Опыт", dashboards: "Дашборды", projects: "Проекты", about: "Обо мне" },
     mail: "Написать на почту",
     call: "Позвонить",
   },
@@ -770,6 +815,7 @@ const UI = {
     contactSub: "I reply within a day",
     foot: "Hand-built with HTML, CSS and JavaScript. Dashboard data belongs to its public sources.",
     pages: { overview: "Overview", experience: "Experience", dashboards: "Dashboards", projects: "Projects and skills", about: "About" },
+    pagesShort: { overview: "Home", experience: "Career", dashboards: "Dashboards", projects: "Projects", about: "About" },
     mail: "Send an email",
     call: "Call",
   },
@@ -970,8 +1016,8 @@ function renderStatic() {
   </div>`).join("") + `<div class="cefr-l" aria-hidden="true" style="margin-top:6px">${lv.map((v) => `<i>${v}</i>`).join("")}</div>`;
 
   // Pages
-  const P = T("pages");
-  $("#pages").innerHTML = Object.keys(P).map((id) => `<a href="#${id}" data-pg="${id}">${esc(P[id])}</a>`).join("");
+  const P = T("pages"), PS = T("pagesShort");
+  $("#pages").innerHTML = Object.keys(P).map((id) => `<a href="#${id}" data-pg="${id}" aria-label="${esc(P[id])}"><span class="pg-long" aria-hidden="true">${esc(P[id])}</span><span class="pg-short" aria-hidden="true">${esc(PS[id])}</span></a>`).join("");
 
   bindTools();
   applyFilter();

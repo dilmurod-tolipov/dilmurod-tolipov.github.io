@@ -648,7 +648,23 @@ const DASHBOARDS = [
     url: "https://bi-dev.tashkent.uz/viewer/public?dashboardGuid=2ed46ab6b4824e79b6a2ab806c80d5b5",
     tags: ["Visiology", "SQL"],
   },
-  { url: "" }, { url: "" }, { url: "" }, { url: "" }, { url: "" },
+  {
+    title: { ru: "Аналитика заявок на экзамены в Ташкенте", en: "Applications for exams analytics in Tashkent" },
+    stat: "3 957",
+    statLabel: { ru: "поданных заявок", en: "applications submitted" },
+    note: { ru: "По районам, статусам, полу и типам экзаменов. Основано на открытых данных dashboard viewer.", en: "By district, status, gender and exam type. Based on public dashboard viewer data." },
+    url: "https://bi-dev.tashkent.uz/viewer/public?dashboardGuid=46655fc2014144659ae80c4df2804068",
+    tags: ["Visiology", "BI", "Analytics"],
+  },
+  {
+    title: { ru: "Демография и распределение экзаменационных заявок", en: "Exam applications demographics and distribution" },
+    stat: "65%",
+    statLabel: { ru: "одобрено", en: "approved" },
+    note: { ru: "Сравнение статуса заявок, типов экзаменов, количества мужчин и женщин, а также сроков подачи.", en: "Comparison of application status, exam types, male/female distribution and submission timing." },
+    url: "https://bi-dev.tashkent.uz/viewer/public?dashboardGuid=d5c72ab30bf84c2c8b3d4efde2a57ad3&fit=true",
+    tags: ["Visiology", "BI", "Analytics"],
+  },
+  { url: "" }, { url: "" }, { url: "" },
 ];
 const SHOW_EMPTY_SLOTS = true; // false — скрыть пустые слоты перед публикацией
 

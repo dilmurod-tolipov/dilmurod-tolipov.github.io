@@ -154,7 +154,7 @@ section{padding:clamp(40px,6vw,72px) 0 0}
 .live-cap h2{font-size:20px;font-weight:700;letter-spacing:-.01em}
 .live-cap p{font-size:13px;color:var(--on-fill-2)}
 
-.kpis{margin-top:var(--gap);background:var(--fill);color:var(--on-fill);display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.kpis{margin-top:var(--gap);background:var(--fill);color:var(--on-fill);display:grid;grid-template-columns:repeat(var(--kpi-n,5),minmax(0,1fr))}
 .kpi{padding:22px 24px 24px;border-left:1px solid var(--fill-line)}
 .kpi:first-child{border-left:0}
 .kpi-v{font-size:clamp(40px,4.6vw,68px);font-weight:800;letter-spacing:-.04em;line-height:1}
@@ -206,17 +206,6 @@ section{padding:clamp(40px,6vw,72px) 0 0}
 .dash h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
 .dash-note{font-size:13px;color:var(--on-fill-2);margin-bottom:14px}
 .dash-actions{display:flex;flex-wrap:wrap;gap:8px}
-.slot{border-style:dashed;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;min-height:300px;color:var(--fg-2)}
-.slot b{color:var(--fg);font-size:16px}
-.slot p{font-size:13px;max-width:30ch}
-.slot .slot-n{font-size:clamp(40px,4.4vw,60px);font-weight:800;letter-spacing:-.04em;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--fg-3);max-width:none;margin-bottom:8px}
-
-.proj{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:16px 0;border-top:1px solid var(--soft)}
-.proj:first-child{border-top:0;padding-top:0}
-.proj h3{font-size:17px;font-weight:700}
-.proj p{font-size:14px;color:var(--fg-2);grid-column:1/-1}
-.proj .tags{grid-column:1/-1;margin-top:4px}
-.draft{font-size:12px;font-weight:600;border:1px dashed var(--fg-3);color:var(--fg-2);padding:1px 7px;align-self:start;white-space:nowrap}
 
 .mx{width:100%;border-collapse:collapse;font-size:14px}
 .mx th{font-size:12px;font-weight:600;color:var(--fg-2);text-align:center;padding:0 4px 10px;width:21%}
@@ -272,7 +261,7 @@ dialog::backdrop{background:rgba(0,0,0,.72)}
 .toast{position:fixed;left:50%;bottom:72px;transform:translateX(-50%);background:var(--fill);color:var(--on-fill);border:var(--bw) solid var(--line);padding:10px 16px;font-size:14px;font-weight:600;z-index:40}
 
 @media (max-width:1100px){
-  .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .kpis{grid-template-columns:repeat(var(--kpi-md,3),minmax(0,1fr))}
   .kpi:nth-child(4){border-left:0}
   .kpi:nth-child(n+4){border-top:1px solid var(--fill-line)}
   .s8,.s7,.s5{grid-column:span 12}
@@ -329,7 +318,7 @@ dialog::backdrop{background:rgba(0,0,0,.72)}
   .dlg-bar .btn{flex:1;justify-content:center}
 }
 @media (max-width:560px){
-  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpis{grid-template-columns:repeat(var(--kpi-sm,2),minmax(0,1fr))}
   .kpi{border-left:0;border-top:1px solid var(--fill-line)}
   .kpi:nth-child(-n+2){border-top:0}
   .kpi:nth-child(even){border-left:1px solid var(--fill-line)}
@@ -338,7 +327,6 @@ dialog::backdrop{background:rgba(0,0,0,.72)}
   .brand-name{display:none}
   .hero-contacts .btn{flex:1 1 auto;justify-content:center}
   .dash{min-height:0}
-  .slot{min-height:150px}
   .g-label b{font-size:14px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -466,12 +454,7 @@ dialog::backdrop{background:rgba(0,0,0,.72)}
         <p class="sec-note" data-t="skillsNote"></p>
       </div>
       <div class="grid">
-        <div class="tile s7">
-          <p class="tile-title" data-t="projTitle"></p>
-          <p class="tile-sub" data-t="projSub"></p>
-          <div id="proj-list"></div>
-        </div>
-        <div class="tile s5">
+        <div class="tile s12">
           <p class="tile-title" data-t="mxTitle"></p>
           <p class="tile-sub" data-t="mxSub"></p>
           <table class="mx" id="matrix"></table>
@@ -506,7 +489,7 @@ dialog::backdrop{background:rgba(0,0,0,.72)}
           <p class="tile-sub" data-t="schemaSub"></p>
           <div class="scroll-x schema-scroll">
           <svg viewBox="0 0 640 300" role="img" aria-labelledby="schema-desc">
-            <desc id="schema-desc">fact_career в центре, связан с dim_date, dim_company, dim_skill, dim_project и dim_language</desc>
+            <desc id="schema-desc">fact_career в центре, связан с dim_date, dim_company, dim_skill, dim_dashboard и dim_language</desc>
             <g class="sch-l">
               <line x1="320" y1="150" x2="95" y2="55"/><line x1="320" y1="150" x2="545" y2="55"/>
               <line x1="320" y1="150" x2="95" y2="245"/><line x1="320" y1="150" x2="545" y2="245"/>
@@ -517,7 +500,7 @@ dialog::backdrop{background:rgba(0,0,0,.72)}
               <text class="sch-ft" x="241" y="118" font-weight="700" font-size="15">fact_career</text>
               <text class="sch-fs" x="241" y="142">date_key</text>
               <text class="sch-fs" x="241" y="160">company_key, skill_key</text>
-              <text class="sch-fs" x="241" y="178">project_key</text>
+              <text class="sch-fs" x="241" y="178">dashboard_key</text>
               <text class="sch-fs" x="241" y="196">dashboards_built = 300+</text>
             </g>
             <g font-size="12">
@@ -528,7 +511,7 @@ dialog::backdrop{background:rgba(0,0,0,.72)}
               <rect class="sch-dim" x="20" y="216" width="150" height="58"/>
               <text class="sch-t" x="34" y="239" font-weight="700" font-size="14">dim_skill</text><text class="sch-s" x="34" y="259" id="schema-skills">13 rows</text>
               <rect class="sch-dim" x="470" y="216" width="150" height="58"/>
-              <text class="sch-t" x="484" y="239" font-weight="700" font-size="14">dim_project</text><text class="sch-s" x="484" y="259">4 rows</text>
+              <text class="sch-t" x="484" y="239" font-weight="700" font-size="14">dim_dashboard</text><text class="sch-s" x="484" y="259" id="schema-dash">3 rows</text>
               <rect class="sch-dim" x="245" y="244" width="150" height="50"/>
               <text class="sch-t" x="259" y="265" font-weight="700" font-size="14">dim_language</text><text class="sch-s" x="259" y="284">4 rows</text>
             </g>
@@ -599,8 +582,6 @@ const KPIS = [
   { value: "300+", label: { ru: "дашбордов построено", en: "dashboards built" } },
   { value: "80", label: { ru: "клиентов на Kwork", en: "clients on Kwork" } },
   { value: "auto-years", label: null },
-  { value: null, label: { ru: "млн строк в обработке", en: "million rows processed" } },
-  { value: "4", label: { ru: "проекта в портфолио", en: "portfolio projects" } },
 ];
 
 const JOBS = [
@@ -664,16 +645,6 @@ const DASHBOARDS = [
     url: "https://bi-dev.tashkent.uz/viewer/public?dashboardGuid=d5c72ab30bf84c2c8b3d4efde2a57ad3&fit=true",
     tags: ["Visiology", "BI", "Analytics"],
   },
-  { url: "" }, { url: "" }, { url: "" },
-];
-const SHOW_EMPTY_SLOTS = true; // false — скрыть пустые слоты перед публикацией
-
-// draft: true — пометка «черновик», пока проект не описан
-const PROJECTS = [
-  { draft: true, title: { ru: "Проект 1: дашборд в Power BI", en: "Project 1: Power BI dashboard" }, desc: { ru: "Задача, данные и результат. Модель данных, DAX-меры, Power Query.", en: "Goal, data and outcome. Data model, DAX measures, Power Query." }, tags: ["Power BI", "DAX", "Power Query", "Excel"], url: "" },
-  { draft: true, title: { ru: "Проект 2: анализ в BigQuery и Tableau", en: "Project 2: BigQuery and Tableau analysis" }, desc: { ru: "Задача, данные и результат. SQL в BigQuery, визуализация в Tableau.", en: "Goal, data and outcome. SQL in BigQuery, visuals in Tableau." }, tags: ["BigQuery", "SQL", "Tableau"], url: "" },
-  { draft: true, title: { ru: "Проект 3: ETL-пайплайн", en: "Project 3: ETL pipeline" }, desc: { ru: "Задача, данные и результат. Парсинг, очистка, загрузка в PostgreSQL.", en: "Goal, data and outcome. Scraping, cleaning, loading into PostgreSQL." }, tags: ["Python", "ETL", "PostgreSQL", "API"], url: "" },
-  { draft: true, title: { ru: "Проект 4", en: "Project 4" }, desc: { ru: "Задача, данные и результат.", en: "Goal, data and outcome." }, tags: ["SQL", "Python"], url: "" },
 ];
 
 const EDUCATION = [
@@ -743,17 +714,11 @@ const UI = {
     viewHere: "Смотреть здесь",
     newTab: "Открыть в новой вкладке",
     close: "Закрыть",
-    slot: "Место для дашборда",
-    slotText: "Добавьте ссылку в массив DASHBOARDS в index.html",
-    skillsTitle: "Проекты и навыки",
+    skillsTitle: "Навыки",
     skillsNote: "Нажмите на инструмент в матрице или в фильтре сверху, чтобы увидеть, где он применялся.",
-    projTitle: "Проекты",
-    projSub: "Самостоятельные работы с полным циклом: от данных до отчёта",
-    draft: "черновик",
-    openProj: "Открыть",
     mxTitle: "Где применял инструменты",
-    mxSub: "Считается автоматически из опыта и проектов",
-    mxCols: ["Работа", "Фриланс", "Проекты"],
+    mxSub: "Считается автоматически из опыта и дашбордов",
+    mxCols: ["Работа", "Фриланс", "Дашборды"],
     aboutTitle: "Обо мне",
     eduTitle: "Образование",
     eduSub: "Обучение продолжается",
@@ -767,8 +732,8 @@ const UI = {
     contactTitle: "Связаться",
     contactSub: "Отвечаю в течение дня",
     foot: "Страница собрана вручную на HTML, CSS и JavaScript. Данные дашбордов принадлежат их публичным источникам.",
-    pages: { overview: "Обзор", experience: "Опыт", dashboards: "Дашборды", projects: "Проекты и навыки", about: "Обо мне" },
-    pagesShort: { overview: "Обзор", experience: "Опыт", dashboards: "Дашборды", projects: "Проекты", about: "Обо мне" },
+    pages: { overview: "Обзор", experience: "Опыт", dashboards: "Дашборды", projects: "Навыки", about: "Обо мне" },
+    pagesShort: { overview: "Обзор", experience: "Опыт", dashboards: "Дашборды", projects: "Навыки", about: "Обо мне" },
     mail: "Написать на почту",
     call: "Позвонить",
   },
@@ -806,17 +771,11 @@ const UI = {
     viewHere: "View here",
     newTab: "Open in new tab",
     close: "Close",
-    slot: "Dashboard slot",
-    slotText: "Add a link to the DASHBOARDS array in index.html",
-    skillsTitle: "Projects and skills",
+    skillsTitle: "Skills",
     skillsNote: "Pick a tool in the matrix or the filter above to see where it was used.",
-    projTitle: "Projects",
-    projSub: "Independent end-to-end work, from raw data to report",
-    draft: "draft",
-    openProj: "Open",
     mxTitle: "Where each tool was used",
-    mxSub: "Calculated from experience and projects",
-    mxCols: ["Job", "Freelance", "Projects"],
+    mxSub: "Calculated from experience and dashboards",
+    mxCols: ["Job", "Freelance", "Dashboards"],
     aboutTitle: "About",
     eduTitle: "Education",
     eduSub: "In progress",
@@ -830,8 +789,8 @@ const UI = {
     contactTitle: "Get in touch",
     contactSub: "I reply within a day",
     foot: "Hand-built with HTML, CSS and JavaScript. Dashboard data belongs to its public sources.",
-    pages: { overview: "Overview", experience: "Experience", dashboards: "Dashboards", projects: "Projects and skills", about: "About" },
-    pagesShort: { overview: "Home", experience: "Career", dashboards: "Dashboards", projects: "Projects", about: "About" },
+    pages: { overview: "Overview", experience: "Experience", dashboards: "Dashboards", projects: "Skills", about: "About" },
+    pagesShort: { overview: "Home", experience: "Career", dashboards: "Dashboards", projects: "Skills", about: "About" },
     mail: "Send an email",
     call: "Call",
   },
@@ -950,6 +909,10 @@ function renderStatic() {
     if (k.value === "auto-years") return `<div class="kpi"><p class="kpi-v num">${yrs}</p><p class="kpi-l">${plural(yrs, T("years"))}</p></div>`;
     return `<div class="kpi"><p class="kpi-v num${k.value == null ? " todo" : ""}">${k.value == null ? "—" : esc(k.value)}</p><p class="kpi-l">${esc(L(k.label))}</p></div>`;
   }).join("");
+  const kn = KPIS.length;
+  $("#kpis").style.setProperty("--kpi-n", kn);
+  $("#kpis").style.setProperty("--kpi-md", Math.min(kn, 3));
+  $("#kpis").style.setProperty("--kpi-sm", Math.min(kn, 2));
 
   // Gantt
   const START = { y: 2023, m: 1 }, SPAN = 72;
@@ -986,34 +949,20 @@ function renderStatic() {
   }).join("");
 
   // Gallery
-  let slotN = 1;
-  $("#gallery").innerHTML = DASHBOARDS.map((d, i) => {
-    if (d.url) {
-      slotN++;
-      return `<article class="tile s4 inverse dash fx" data-tags="${esc(d.tags.join("|"))}" data-fact="1">
+  $("#gallery").innerHTML = DASHBOARDS.filter((d) => d.url).map((d) => {
+    const i = DASHBOARDS.indexOf(d);
+    return `<article class="tile s4 inverse dash fx" data-tags="${esc(d.tags.join("|"))}" data-fact="1">
         <div><div class="tags" style="margin-bottom:18px">${tagsHTML(d.tags)}</div>
         <p class="dash-stat num">${esc(d.stat || "")}</p><p class="dash-statl">${esc(L(d.statLabel))}</p></div>
         <div><h3>${esc(L(d.title))}</h3><p class="dash-note">${esc(L(d.note))}</p>
         <div class="dash-actions"><button type="button" class="btn btn-fill" data-dash="${i}">${esc(T("viewHere"))}</button><a class="btn" href="${esc(d.url)}" target="_blank" rel="noopener">${esc(T("newTab"))}</a></div></div>
       </article>`;
-    }
-    if (!SHOW_EMPTY_SLOTS) return "";
-    const n = slotN++;
-    return `<div class="tile s4 slot"><p class="slot-n num">#${n}</p><b>${esc(T("slot"))}</b><p>${esc(T("slotText"))}</p></div>`;
   }).join("");
   $$("[data-dash]").forEach((b) => (b.onclick = () => openDash(DASHBOARDS[+b.dataset.dash])));
 
-  // Projects
-  $("#proj-list").innerHTML = PROJECTS.map((p) => `<article class="proj fx" data-tags="${esc(p.tags.join("|"))}" data-fact="1">
-    <h3>${esc(L(p.title))}</h3>
-    ${p.url ? `<a class="btn" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(T("openProj"))}</a>` : p.draft ? `<span class="draft">${esc(T("draft"))}</span>` : "<span></span>"}
-    <p>${esc(L(p.desc))}</p>
-    <div class="tags">${tagsHTML(p.tags)}</div>
-  </article>`).join("");
-
   // Matrix
   const jobTags = JOBS.map((j) => j.bullets.flatMap((b) => b.tags));
-  const projTags = [...PROJECTS.flatMap((p) => p.tags), ...DASHBOARDS.filter((d) => d.url).flatMap((d) => d.tags)];
+  const projTags = DASHBOARDS.filter((d) => d.url).flatMap((d) => d.tags);
   const cols = T("mxCols");
   $("#matrix").innerHTML = `<thead><tr><th scope="col"><span class="sr-only">${esc(T("stack"))}</span></th>${cols.map((c) => `<th scope="col">${esc(c)}</th>`).join("")}</tr></thead><tbody>` +
     ALL_TOOLS.map((t) => {
@@ -1021,6 +970,7 @@ function renderStatic() {
       return `<tr class="fx" data-tags="${esc(t)}"><td><button type="button" class="mx-name" data-tool="${esc(t)}">${esc(t)}</button></td>${v.map((x, i) => `<td aria-label="${esc(cols[i])}: ${x ? "✓" : "—"}"><span class="cell${x ? "" : " no"}"></span></td>`).join("")}</tr>`;
     }).join("") + "</tbody>";
   $("#schema-skills").textContent = `${ALL_TOOLS.length} rows`;
+  $("#schema-dash").textContent = `${DASHBOARDS.filter((d) => d.url).length} rows`;
 
   // About
   $("#edu").innerHTML = EDUCATION.map((e) => `<div class="edu"><b>${esc(L(e.title))}</b><p>${esc(L(e.text))}</p></div>`).join("");
